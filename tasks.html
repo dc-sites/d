@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learny - Tasks</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">L<span>Learny</span></div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i class="fa fa-home"></i> Dashboard</a>
+                <a href="profile.html" class="nav-item"><i class="fa fa-user"></i> Profile</a>
+                <a href="bot.html" class="nav-item"><i class="fa fa-robot"></i> LearnyAI</a>
+                <a href="tasks.html" class="nav-item active"><i class="fa fa-tasks"></i> Tasks</a>
+                <a href="time.html" class="nav-item"><i class="fa fa-clock"></i> Time Tracker</a>
+                <a href="achievements.html" class="nav-item"><i class="fa fa-trophy"></i> Achievements</a>
+                <a href="motivation.html" class="nav-item"><i class="fa fa-quote-left"></i> Motivation</a>
+                <a href="music.html" class="nav-item"><i class="fa fa-music"></i> Music</a>
+                <a href="pomodoro.html" class="nav-item"><i class="fa fa-hourglass-half"></i> Pomodoro</a>
+                <a href="mark.html" class="nav-item"><i class="fa fa-graduation-cap"></i> Mark Analyze</a>
+                <a href="pastpapers.html" class="nav-item"><i class="fa fa-file-alt"></i> Past Papers</a>
+                <a href="countdown.html" class="nav-item"><i class="fa fa-calendar-alt"></i> Countdown</a>
+                <a href="settings.html" class="nav-item"><i class="fa fa-cog"></i> Settings</a>
+                <a href="contact.html" class="nav-item"><i class="fa fa-envelope"></i> Contact</a>
+                <a href="rate.html" class="nav-item"><i class="fa fa-star"></i> Rate Us</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="hamburger"><i class="fa fa-bars"></i></button>
+                <div class="top-bar-right">
+                    <span class="welcome-text">Welcome, User!</span>
+                    <button class="theme-toggle"><i class="fa fa-moon"></i></button>
+                </div>
+            </header>
+            <div class="content">
+                <h2>Tasks</h2>
+                <div class="stats-grid">
+                    <div class="stat-card"><h3 id="task-count">0</h3><p>Total Tasks</p></div>
+                    <div class="stat-card"><h3 id="pending-count">0</h3><p>Pending</p></div>
+                    <div class="stat-card"><h3 id="done-count">0</h3><p>Done</p></div>
+                    <div class="stat-card"><h3 id="completion-rate">0%</h3><p>Completion</p></div>
+                </div>
+                <div class="card task-form-card">
+                    <h3>Add Task</h3>
+                    <!-- NEW: Date Picker to View/Edit Previous Dates -->
+                    <form id="task-form">
+                        <div class="form-group" style="margin-bottom: 10px;">
+                            <label for="task-date-view" style="font-size: 0.85rem; color: var(--text-muted);">View/Edit Date:</label>
+                            <input type="date" id="task-date-view" class="form-control">
+                        </div>
+                        <input type="text" id="task-input" class="form-control" placeholder="What do you need to study?" required>
+                        <input type="time" id="task-time-input" class="form-control" required>
+                        <button type="submit" class="btn btn-primary">Add Task</button>
+                    </form>
+                </div>
+                <div class="card task-list-card">
+                    <h3>Your Tasks</h3>
+                    <div id="tasks-list"></div>
+                </div>
+            </div>
+            <footer class="footer">Powered by <a href="contact.html">DC</a> | Made in Sri Lanka 🇱🇰</footer>
+        </main>
+    </div>
+    <div id="notification-toast" class="toast"><span></span></div>
+    <div class="overlay"></div>
+    <script src="script.js"></script>
+</body>
+</html>
