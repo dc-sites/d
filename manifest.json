@@ -1,6 +1,6 @@
 {
   "name": "Learny",
-  "short_name": "Learny",
+  "short_name": "My Learny",
   "description": "Stay focused & keep learning ✨",
   "start_url": "./index.html",
   "display": "standalone",
