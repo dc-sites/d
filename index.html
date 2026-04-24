@@ -10,6 +10,22 @@
     
     <!-- Dashboard & Fix Styles -->
     <style>
+        /* ✅ FIX: Mobile Tap & Auto-Select Issue */
+        * { -webkit-tap-highlight-color: transparent; outline: none; }
+        button, .btn, a, .nav-item a, .task-check, .task-delete, .theme-toggle, .tuition-btn, .mode-btn, .faq-question, .star-btn, .theme-option, .countdown-actions button, .player-btn, .playlist-item, .avatar-option, .cal-day, .translate-btn, .chat-option-btn {
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -webkit-touch-callout: none !important;
+            touch-action: manipulation !important;
+            cursor: pointer !important;
+        }
+        /* Keep typing functional */
+        input, textarea, select { user-select: text !important; -webkit-user-select: text !important; touch-action: auto !important; }
+
+        /* ✅ FIX: Space between Quick Tips and Quick Stats */
+        .stats-wrapper { margin-bottom: 20px; }
+        .tips-wrapper { margin-top: 24px; }
+        
         /* Tuition Dashboard Integration */
         .tuition-list { max-height: 280px; overflow-y: auto; padding-right: 4px; }
         .tuition-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-dark); border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid var(--border); transition: all var(--transition); position: relative; }
@@ -31,28 +47,6 @@
         .view-all-tuition { text-align: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
         .view-all-tuition a { color: var(--primary-light); font-size: 12px; font-weight: 600; text-decoration: none; }
         .view-all-tuition a:hover { text-decoration: underline; }
-
-        /* ✅ FIX: Mobile Tap & Auto-Select Issue */
-        * { -webkit-tap-highlight-color: transparent; outline: none; }
-        button, .btn, a, .nav-item a, .task-check, .task-delete, .theme-toggle, .tuition-btn, .mode-btn, .faq-question, .star-btn, .theme-option, .countdown-actions button, .player-btn, .playlist-item, .avatar-option {
-            user-select: none !important;
-            -webkit-user-select: none !important;
-            -webkit-touch-callout: none !important;
-            touch-action: manipulation !important;
-            cursor: pointer !important;
-            -webkit-tap-highlight-color: transparent !important;
-        }
-        /* Keep typing functional */
-        input, textarea, select { user-select: text !important; -webkit-user-select: text !important; touch-action: auto !important; }
-
-        /* ✅ FIX: Space between Quick Tips and Quick Stats */
-        .stats-wrapper { margin-bottom: 20px; }
-        .tips-wrapper { margin-top: 24px; }
-        
-        /* Mobile Safe Padding */
-        @media (max-width: 768px) {
-            .stats-wrapper, .tips-wrapper { margin-bottom: 16px; margin-top: 16px; }
-        }
     </style>
 </head>
 <body>
