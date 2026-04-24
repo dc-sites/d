@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Dashboard & Fix Styles -->
+    <!-- ✅ FIX: Modal Z-Index, Mobile Tap & Spacing -->
     <style>
-        /* ✅ FIX: Mobile Tap & Auto-Select Issue */
+        /* 1. MODAL Z-INDEX FIX (Place above sidebar & overlay) */
+        .overlay { z-index: 9999 !important; }
+        .modal { z-index: 10001 !important; }
+        #premium-success { z-index: 10002 !important; }
+
+        /* 2. MOBILE TAP & AUTO-SELECT FIX */
         * { -webkit-tap-highlight-color: transparent; outline: none; }
         button, .btn, a, .nav-item a, .task-check, .task-delete, .theme-toggle, .tuition-btn, .mode-btn, .faq-question, .star-btn, .theme-option, .countdown-actions button, .player-btn, .playlist-item, .avatar-option, .cal-day, .translate-btn, .chat-option-btn {
             user-select: none !important;
@@ -19,14 +24,14 @@
             touch-action: manipulation !important;
             cursor: pointer !important;
         }
-        /* Keep typing functional */
         input, textarea, select { user-select: text !important; -webkit-user-select: text !important; touch-action: auto !important; }
 
-        /* ✅ FIX: Space between Quick Tips and Quick Stats */
-        .stats-wrapper { margin-bottom: 20px; }
+        /* 3. SPACE BETWEEN QUICK STATS & QUICK TIPS */
+        .stats-wrapper { margin-bottom: 24px; }
         .tips-wrapper { margin-top: 24px; }
-        
-        /* Tuition Dashboard Integration */
+        @media (max-width: 768px) { .stats-wrapper, .tips-wrapper { margin-bottom: 16px; margin-top: 16px; } }
+
+        /* Tuition Dashboard Integration (Preserved) */
         .tuition-list { max-height: 280px; overflow-y: auto; padding-right: 4px; }
         .tuition-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-dark); border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid var(--border); transition: all var(--transition); position: relative; }
         .tuition-item:hover { border-color: var(--primary); transform: translateX(4px); }
@@ -225,7 +230,7 @@
         <span>Notification message</span>
     </div>
 
-    <!-- Premium Modal -->
+    <!-- ✅ MODALS MOVED TO BODY END (Fixes Z-Index/Overlay Issues) -->
     <div id="premium-modal" class="modal">
         <h3 style="margin-bottom:16px;">Premium Access Required</h3>
         <p class="text-muted" style="margin-bottom:20px;">Enter your assigned Premium ID to continue.</p>
@@ -233,7 +238,6 @@
         <button class="btn btn-primary w-full" onclick="APP.verifyPremium()">Verify & Continue</button>
     </div>
 
-    <!-- Premium Success Modal -->
     <div id="premium-success" class="modal">
         <div style="text-align:center;">
             <i class="fa fa-check-circle" style="font-size:48px;color:var(--success);margin-bottom:16px;"></i>
