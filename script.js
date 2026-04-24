@@ -29,14 +29,14 @@ selectedTaskDate: new Date().toISOString().split('T')[0],
 // ============ TUITION MODULE ============
 tuitionAvatars: [
     'https://i.postimg.cc/1XJ2YM8X/cropped-circle-image-(11).png',
+    'https://ibb.co/Rp8DjBKb',
     'https://i.postimg.cc/YC4Zb6MM/cropped-circle-image-(12).png',
     'https://i.postimg.cc/NMtnsZT0/cropped-circle-image-(13).png',
     'https://i.postimg.cc/qqMZnn1p/cropped-circle-image-(14).png',
     'https://i.postimg.cc/NjrC1Qkj/cropped-circle-image-(15).png',
     'https://i.postimg.cc/bJLmzrpK/cropped-circle-image-(16).png',
     'https://i.postimg.cc/MHFtQLcV/cropped-circle-image-(17).png',
-    'https://i.postimg.cc/c4vFSdjc/cropped-circle-image-(18).png',
-    'https://i.postimg.cc/1XJ2YM8X/cropped-circle-image-(11).png'
+    'https://i.postimg.cc/c4vFSdjc/cropped-circle-image-(18).png'
 ],
 
 initTuition() {
