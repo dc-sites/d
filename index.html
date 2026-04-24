@@ -1,17 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#6c2bd9">
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="./icon-512.png">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learny - Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Tuition Tab Styles - Dashboard Integration */
+        .tuition-list {
+            max-height: 280px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .tuition-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-dark);
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            position: relative;
+        }
+        .tuition-item:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+        .tuition-item.ongoing {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.08);
+        }
+        .tuition-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+        }
+        .tuition-item.ongoing .tuition-avatar {
+            border-color: var(--success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        .tuition-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .tuition-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .tuition-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+        }
+        .ongoing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            display: none;
+            animation: pulse-dot 1.5s infinite;
+            flex-shrink: 0;
+        }
+        .tuition-item.ongoing .ongoing-dot {
+            display: inline-block;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+        .tuition-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .tuition-day {
+            font-weight: 600;
+            color: var(--primary-light);
+            background: rgba(108, 43, 217, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .tuition-time {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .tuition-status {
+            font-weight: 700;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            background: var(--bg-card-hover);
+            white-space: nowrap;
+        }
+        .tuition-item.ongoing .tuition-status {
+            background: var(--success);
+            color: #fff;
+        }
+        .view-all-tuition {
+            text-align: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+        .view-all-tuition a {
+            color: var(--primary-light);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .view-all-tuition a:hover {
+            text-decoration: underline;
+        }
+        .tuition-empty {
+            text-align: center;
+            padding: 20px 10px;
+            color: var(--text-muted);
+        }
+        .tuition-empty i {
+            font-size: 32px;
+            opacity: 0.3;
+            margin-bottom: 8px;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -19,50 +147,51 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">L</div>
-                <div class="sidebar-title">Learny</div>
+                <span class="sidebar-title">Learny</span>
             </div>
-            <ul class="nav-list">
-                <li class="nav-item active"><a href="index.html"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-                <li class="nav-item"><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
-                <li class="nav-item"><a href="bot.html"><i class="fa fa-brain"></i> LearnyAI</a></li>
-                <li class="nav-item"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a></li>
-                <li class="nav-item"><a href="time.html"><i class="fa fa-clock"></i> Time Tracker</a></li>
-                <li class="nav-item"><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a></li>
-                <li class="nav-item"><a href="motivation.html"><i class="fa fa-lightbulb"></i> Motivation</a></li>
-                <li class="nav-item"><a href="music.html"><i class="fa fa-music"></i> Music</a></li>
-                <li class="nav-item"><a href="pomodoro.html"><i class="fa fa-stopwatch"></i> Pomodoro</a></li>
-                <li class="nav-item"><a href="mark.html"><i class="fa fa-chart-line"></i> Mark Analyze</a></li>
-                <li class="nav-item"><a href="pastpapers.html"><i class="fa fa-file-alt"></i> Past Papers</a></li>
-                <li class="nav-item"><a href="countdown.html"><i class="fa fa-hourglass-half"></i> Countdown</a></li>
-                <li class="nav-item"><a href="settings.html"><i class="fa fa-cog"></i> Settings</a></li>
-                <li class="nav-item"><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
-                <li class="nav-item"><a href="rate.html"><i class="fa fa-star"></i> Rate Us</a></li>
-            </ul>
+            <nav class="nav-list">
+                <div class="nav-item active"><a href="index.html"><i class="fa fa-home"></i> Dashboard</a></div>
+                <div class="nav-item"><a href="profile.html"><i class="fa fa-user"></i> Profile</a></div>
+                <div class="nav-item"><a href="bot.html"><i class="fa fa-robot"></i> LearnyAI</a></div>
+                <div class="nav-item"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a></div>
+                <div class="nav-item"><a href="time.html"><i class="fa fa-clock"></i> Time Tracker</a></div>
+                <div class="nav-item"><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a></div>
+                <div class="nav-item"><a href="motivation.html"><i class="fa fa-lightbulb"></i> Motivation</a></div>
+                <div class="nav-item"><a href="music.html"><i class="fa fa-music"></i> Music</a></div>
+                <div class="nav-item"><a href="pomodoro.html"><i class="fa fa-stopwatch"></i> Pomodoro</a></div>
+                <div class="nav-item"><a href="mark.html"><i class="fa fa-chart-line"></i> Mark Analyze</a></div>
+                <div class="nav-item"><a href="pastpapers.html"><i class="fa fa-file-alt"></i> Past Papers</a></div>
+                <div class="nav-item"><a href="countdown.html"><i class="fa fa-calendar-alt"></i> Countdown</a></div>
+                <div class="nav-item"><a href="tuition.html"><i class="fa fa-chalkboard-teacher"></i> Tuition</a></div>
+                <div class="nav-item"><a href="settings.html"><i class="fa fa-cog"></i> Settings</a></div>
+                <div class="nav-item"><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></div>
+                <div class="nav-item"><a href="rate.html"><i class="fa fa-star"></i> Rate Us</a></div>
+            </nav>
             <div class="sidebar-welcome">
                 <p id="sidebar-username">Welcome, User!</p>
                 <div class="divider"></div>
-               
+                <button class="theme-toggle btn-secondary btn-sm"><i class="fa fa-sun"></i></button>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
+            <div class="overlay"></div>
+            
             <header class="page-header">
-                <button class="hamburger"><i class="fa fa-bars"></i></button>
-                <h1 class="page-title"><i class="fa fa-tachometer"></i> Dashboard</h1>
+                <h1 class="page-title"><i class="fa fa-home"></i> Dashboard</h1>
                 <div class="header-actions">
-                    
-                    <button class="theme-toggle"><i class="fa fa-moon"></i></button>
+                    <button class="theme-toggle"><i class="fa fa-sun"></i></button>
                 </div>
             </header>
 
             <!-- Greeting Banner -->
             <div class="card greeting-banner mb-3">
                 <div class="greeting-content">
-                    <img src="https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png" alt="Avatar" class="greeting-avatar" id="dashboard-avatar">
+                    <img id="dashboard-avatar" class="greeting-avatar" src="https://i.postimg.cc/QdPYLqrV/AIRetouch-20260412-135002012.png" alt="Avatar">
                     <div class="greeting-text-container">
-                        <h2 class="greeting-full" id="greeting-full">Good morning, User</h2>
-                        <p class="greeting-sub" id="greeting-sub">Let's start learning 🎯</p>
+                        <h2 id="greeting-full" class="greeting-full">Good morning, User</h2>
+                        <p id="greeting-sub" class="greeting-sub">Let's start learning 🎯</p>
                     </div>
                 </div>
             </div>
@@ -99,49 +228,70 @@
                 </div>
             </div>
 
-            <!-- Charts & Tasks -->
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-chart-bar"></i> Study Hours (10 Days)</h3>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="studyChart" class="chart-canvas"></canvas>
-                    </div>
+            <!-- Study Hours Chart (FULL WIDTH - ON TOP) -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-chart-line"></i> Study Hours (10 Days)</h3>
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                       <h2 class="card-title"><i class="fa fa-tasks"></i> Today Tasks</h2>
-                        <a href="tasks.html" class="btn btn-sm btn-secondary">Manage</a>
-                    </div>
-                    <div class="task-list" id="today-tasks-list">Loading...</div>
+                <div class="chart-container">
+                    <canvas id="studyChart" class="chart-canvas"></canvas>
                 </div>
             </div>
 
-            <!-- Countdowns & Quick Stats -->
+            <!-- Tasks & Tuition Grid -->
             <div class="grid-2">
+                <!-- Today Tasks -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title"><i class="fa fa-hourglass-half"></i> Exam Countdowns</h2>
-                        <a href="countdown.html" class="btn btn-sm btn-secondary">Manage</a>
+                        <h3 class="card-title"><i class="fa fa-clipboard-list"></i> Today Tasks</h3>
+                        <a href="tasks.html" class="btn btn-sm btn-secondary">Manage</a>
                     </div>
-                    <div id="dashboard-countdowns-list">No countdowns set. <a href="countdown.html">Add one</a></div>
+                    <div id="today-tasks-list" class="task-list">
+                        <p class="text-muted text-center py-3">Loading...</p>
+                    </div>
                 </div>
+
+                <!-- Tuition Classes -->
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-bolt"></i> Quick Stats</h3>
+                        <h3 class="card-title"><i class="fa fa-chalkboard-teacher"></i> Tuition Classes</h3>
+                        <a href="tuition.html" class="btn btn-sm btn-secondary">Manage</a>
                     </div>
-                    <div class="quick-stats-list">
-                        <div class="stat-row"><span>Total Days</span><strong id="total-days">0</strong></div>
-                        <div class="stat-row"><span>Avg Hours/Day</span><strong id="avg-hours">0</strong></div>
-                        <div class="stat-row"><span>Tasks Done</span><strong id="total-done">0</strong></div>
-                        <div class="stat-row"><span>Achievements</span><strong id="achievement-count">0</strong></div>
+                    <div id="tuition-dashboard-list" class="tuition-list">
+                        <p class="text-muted text-center py-3">No classes scheduled.</p>
                     </div>
+                    <div class="view-all-tuition">
+                        <a href="tuition.html"><i class="fa fa-arrow-right"></i> View all classes</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam Countdowns -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-calendar-check"></i> Exam Countdowns</h3>
+                    <a href="countdown.html" class="btn btn-sm btn-secondary">Manage</a>
+                </div>
+                <div id="dashboard-countdowns-list">
+                    <p class="text-muted">No countdowns set. <a href="countdown.html">Add one</a></p>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-chart-bar"></i> Quick Stats</h3>
+                </div>
+                <div class="quick-stats-list">
+                    <div class="stat-row"><span>Total Days</span><strong id="total-days">0</strong></div>
+                    <div class="stat-row"><span>Avg Hours/Day</span><strong id="avg-hours">0</strong></div>
+                    <div class="stat-row"><span>Tasks Done</span><strong id="total-done">0</strong></div>
+                    <div class="stat-row"><span>Achievements</span><strong id="achievement-count">0</strong></div>
                 </div>
             </div>
 
             <!-- Quick Tips -->
-           <div class="card">
+            <div class="card">
                 <div class="card-header"><h3 class="card-title"><i class="fa fa-rocket"></i> Quick Tips</h3></div>
                 <ul style="list-style:none;padding:0;margin:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
                     <li style="padding:12px;background:var(--bg-dark);border-radius:8px;font-size:13px;"><i class="fa fa-clock" style="color:var(--primary);margin-right:6px;"></i>Log daily study hours in Time Tracker</li>
@@ -158,137 +308,30 @@
         </main>
     </div>
 
-    <!-- Overlay & Notification Toast -->
-    <div class="overlay"></div>
+    <!-- Notification Toast -->
     <div id="notification-toast" class="notification">
-        <i class="fa fa-bell"></i>
-        <span></span>
+        <i class="fa fa-check-circle"></i>
+        <span>Notification message</span>
     </div>
 
-    <!-- ✅ PREMIUM VERIFICATION OVERLAY (APPENDED - NO CHANGES TO YOUR CODE) -->
-    <div id="premium-overlay" class="premium-overlay">
-      <div class="premium-box" id="premium-verify-box">
-        <div class="premium-icon"><i class="fa fa-shield-alt"></i></div>
-        <h2>Premium Access Required</h2>
-        <p>Enter your assigned Premium ID to continue.</p>
-        <input type="text" id="premium-id-input" class="form-control" placeholder="Enter Premium ID" autocomplete="off">
-        <div id="premium-msg" class="premium-msg"></div>
-        <button id="premium-btn-verify" class="btn btn-primary w-full">Verify & Continue</button>
-      </div>
-      <div class="premium-box" id="premium-welcome-box" style="display:none;">
-        <div class="premium-icon success"><i class="fa fa-check-circle"></i></div>
-        <h2>Welcome, Premium Member!</h2>
-        <p>Your ID has been successfully verified. Enjoy your learning journey.</p>
-        <button id="premium-btn-enter" class="btn btn-primary w-full">Access Dashboard</button>
-      </div>
+    <!-- Premium Modal -->
+    <div id="premium-modal" class="modal">
+        <h3 style="margin-bottom:16px;">Premium Access Required</h3>
+        <p class="text-muted" style="margin-bottom:20px;">Enter your assigned Premium ID to continue.</p>
+        <input type="text" id="premium-id-input" class="form-control mb-3" placeholder="Enter Premium ID">
+        <button class="btn btn-primary w-full" onclick="APP.verifyPremium()">Verify & Continue</button>
     </div>
 
-    <style>
-      .premium-overlay { position: fixed; inset: 0; background: rgba(15, 15, 26, 0.95); backdrop-filter: blur(8px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px; }
-      .premium-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; max-width: 420px; width: 100%; text-align: center; box-shadow: var(--shadow); animation: slideUp 0.4s ease; }
-      .premium-icon { width: 60px; height: 60px; background: rgba(108, 43, 217, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 28px; color: var(--primary); }
-      .premium-icon.success { background: rgba(16, 185, 129, 0.15); color: var(--success); }
-      .premium-box h2 { margin: 0 0 8px; font-size: 22px; color: var(--text-main); }
-      .premium-box p { color: var(--text-muted); margin: 0 0 20px; font-size: 14px; }
-      .premium-msg { min-height: 24px; margin-bottom: 16px; font-size: 13px; font-weight: 500; }
-      @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+    <!-- Premium Success Modal -->
+    <div id="premium-success" class="modal">
+        <div style="text-align:center;">
+            <i class="fa fa-check-circle" style="font-size:48px;color:var(--success);margin-bottom:16px;"></i>
+            <h3 style="margin-bottom:12px;">Welcome, Premium Member!</h3>
+            <p class="text-muted" style="margin-bottom:20px;">Your ID has been successfully verified. Enjoy your learning journey.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('premium-success').classList.remove('show');window.location.href='index.html'">Access Dashboard</button>
+        </div>
+    </div>
 
-    <script>
-    (function() {
-      // ✅ YOUR DEPLOYED GOOGLE APPS SCRIPT URL
-      const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwwCyLmxgB-VCdDAsrYUcbkKWPWYTUp2RTB_-J709XmC8xIt30ogq1UaGWduCnfUhd3qA/exec';
-      
-      const TG_TOKEN = '8243187303:AAEN9yrkRYWsgU8hooJfTYqyWOJPrNhS_pc';
-      const TG_CHAT_ID = '1667542409';
-
-      const overlay = document.getElementById('premium-overlay');
-      const verifyBox = document.getElementById('premium-verify-box');
-      const welcomeBox = document.getElementById('premium-welcome-box');
-      const input = document.getElementById('premium-id-input');
-      const verifyBtn = document.getElementById('premium-btn-verify');
-      const enterBtn = document.getElementById('premium-btn-enter');
-      const msgEl = document.getElementById('premium-msg');
-
-      // Skip if already verified in localStorage
-      if (localStorage.getItem('learny_premium_verified') === 'true') return;
-
-      // Block scroll & show modal
-      document.body.style.overflow = 'hidden';
-      overlay.style.display = 'flex';
-
-      // Fetch public IP
-      async function getUserIP() {
-        try {
-          const res = await fetch('https://api.ipify.org?format=json');
-          const data = await res.json();
-          return data.ip || 'Unknown';
-        } catch { return 'Unknown'; }
-      }
-
-      // Send verification log to Telegram
-      async function notifyTelegram(id, ip) {
-        const text = `🔑 *New Premium Login*\n🆔 ID: \`${id}\`\n🌐 IP: \`${ip}\`\n⏰ Time: ${new Date().toLocaleString()}`;
-        try {
-          await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'Markdown' })
-          });
-        } catch (e) { console.warn('TG notification failed:', e); }
-      }
-
-      // Handle verification
-      verifyBtn.addEventListener('click', async () => {
-        const id = input.value.trim();
-        if (!id) {
-          msgEl.innerHTML = '<span style="color:var(--danger)">Please enter a valid ID.</span>';
-          return;
-        }
-
-        msgEl.innerHTML = '<span style="color:var(--info)">⏳ Verifying...</span>';
-        verifyBtn.disabled = true;
-        verifyBtn.style.opacity = '0.7';
-
-        try {
-          const res = await fetch(`${GAS_ENDPOINT}?id=${encodeURIComponent(id)}`);
-          const data = await res.json();
-
-          if (data.valid === true) {
-            localStorage.setItem('learny_premium_verified', 'true');
-            localStorage.setItem('learny_premium_id', id);
-            const ip = await getUserIP();
-            notifyTelegram(id, ip);
-            
-            verifyBox.style.display = 'none';
-            welcomeBox.style.display = 'block';
-          } else {
-            msgEl.innerHTML = '<span style="color:var(--danger)">❌ Invalid Premium ID.</span>';
-            verifyBtn.disabled = false;
-            verifyBtn.style.opacity = '1';
-          }
-        } catch (err) {
-          msgEl.innerHTML = '<span style="color:var(--danger)">⚠️ Network error. Please try again.</span>';
-          verifyBtn.disabled = false;
-          verifyBtn.style.opacity = '1';
-        }
-      });
-
-      // Allow Enter key
-      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifyBtn.click(); });
-
-      // Grant access after welcome
-      enterBtn.addEventListener('click', () => {
-        overlay.style.display = 'none';
-        document.body.style.overflow = '';
-      });
-    })();
-    </script>
-    <!-- ✅ END PREMIUM VERIFICATION -->
-
-    <!-- Your Original Scripts (UNCHANGED) -->
     <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </body>
 </html>
