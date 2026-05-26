@@ -1,23 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3555092074178348"
+     crossorigin="anonymous"></script>
     <meta name="theme-color" content="#6c2bd9">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="./icon-512.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learny - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Learny- Dashboard</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+     .apk-banner {
+       background: linear-gradient(135deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.08) 100%);
+       border: 1px solid var(--border);
+       border-radius: var(--radius);
+       padding: 16px 20px;
+       margin-bottom: 24px;
+       box-shadow: var(--shadow-sm);
+       position: relative;
+       overflow: hidden;
+       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+       animation: apkSlideIn 0.4s ease-out;
+     }
+     .apk-banner::before {
+       content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+       background: var(--success);
+     }
+     .apk-banner-inner {
+       display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+     }
+     .apk-icon {
+       width: 48px; height: 48px; background: rgba(16, 185, 129, 0.15);
+       border-radius: 12px; display: flex; align-items: center; justify-content: center;
+       font-size: 24px; flex-shrink: 0;
+     }
+     .apk-text { flex: 1; min-width: 200px; }
+     .apk-text h3 { font-size: 16px; font-weight: 700; margin: 0 0 4px; color: var(--text-main); }
+     .apk-text p { font-size: 13px; color: var(--text-muted); margin: 0; }
+     .apk-btn {
+       display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px;
+       background: var(--success); color: #fff; border-radius: var(--radius-sm);
+       font-weight: 600; font-size: 14px; text-decoration: none !important;
+       transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+     }
+     .apk-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); filter: brightness(1.1); }
+     .apk-close {
+       background: none; border: none; color: var(--text-muted); font-size: 18px;
+       cursor: pointer; padding: 8px; margin-left: auto; transition: all 0.2s ease;
+       border-radius: 50%; display: flex; align-items: center; justify-content: center;
+     }
+     .apk-close:hover { background: var(--bg-card-hover); color: var(--text-main); }
+     @keyframes apkSlideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+     @media (max-width: 768px) {
+       .apk-banner-inner { flex-direction: column; text-align: center; gap: 12px; }
+       .apk-icon { margin: 0 auto; }
+       .apk-btn { width: 100%; justify-content: center; }
+       .apk-close { position: absolute; top: 12px; right: 12px; margin: 0; }
+     }
+   </style>
+<style>
         /* 1. MODAL Z-INDEX FIX (Place above sidebar & overlay) */
-        .overlay { z-index: 9999 !important; }
-        .modal { z-index: 10001 !important; }
-        #premium-success { z-index: 10002 !important; }
-
+       
         /* 2. MOBILE TAP & AUTO-SELECT FIX */
         * { -webkit-tap-highlight-color: transparent; outline: none; }
         button, .btn, a, .nav-item a, .task-check, .task-delete, .theme-toggle, .tuition-btn, .mode-btn, .faq-question, .star-btn, .theme-option, .countdown-actions button, .player-btn, .playlist-item, .avatar-option, .cal-day, .translate-btn, .chat-option-btn {
@@ -56,51 +103,60 @@
         .view-all-tuition a { color: var(--primary-light); font-size: 12px; font-weight: 600; text-decoration: none; }
         .view-all-tuition a:hover { text-decoration: underline; }
     </style>
+    <style>
+        /* Ensures overlay always sits correctly above content but below sidebar on mobile */
+        .overlay { z-index: 998; cursor: pointer; }
+        .sidebar { z-index: 999; }
+    </style>
 </head>
 <body>
+    <!-- 🔑 FIX: Overlay placed directly in body to prevent scroll/click trapping -->
+    <div class="overlay"></div>
+
     <div class="app-container">
-        <!-- Sidebar -->
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">L</div>
                 <span class="sidebar-title">Learny</span>
             </div>
-            <nav class="nav-list">
-                <div class="nav-item active"><a href="index.html"><i class="fa fa-home"></i> Dashboard</a></div>
-                <div class="nav-item"><a href="profile.html"><i class="fa fa-user"></i> Profile</a></div>
-                <div class="nav-item"><a href="bot.html"><i class="fa fa-robot"></i> LearnyAI</a></div>
-                <div class="nav-item"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a></div>
-                <div class="nav-item"><a href="time.html"><i class="fa fa-clock"></i> Time Tracker</a></div>
-                <div class="nav-item"><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a></div>
-                <div class="nav-item"><a href="motivation.html"><i class="fa fa-lightbulb"></i> Motivation</a></div>
-                <div class="nav-item"><a href="music.html"><i class="fa fa-music"></i> Music</a></div>
-                <div class="nav-item"><a href="pomodoro.html"><i class="fa fa-stopwatch"></i> Pomodoro</a></div>
-                <div class="nav-item"><a href="mark.html"><i class="fa fa-chart-line"></i> Mark Analyze</a></div>
-                <div class="nav-item"><a href="pastpapers.html"><i class="fa fa-file-alt"></i> Past Papers</a></div>
-                <div class="nav-item"><a href="countdown.html"><i class="fa fa-calendar-alt"></i> Countdown</a></div>
-                <div class="nav-item"><a href="tuition.html"><i class="fa fa-chalkboard-teacher"></i> Tuition</a></div>
-                <div class="nav-item"><a href="settings.html"><i class="fa fa-cog"></i> Settings</a></div>
-                <div class="nav-item"><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></div>
-                <div class="nav-item"><a href="rate.html"><i class="fa fa-star"></i> Rate Us</a></div>
-            </nav>
+            <ul class="nav-list">
+                <li class="nav-item active"><a href="index.html"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="profile.html"><i class="fa fa-user"></i> Profile</a></li>
+                <li class="nav-item"><a href="bot.html"><i class="fa fa-brain"></i> LearnyAI</a></li>
+                <li class="nav-item"><a href="tasks.html"><i class="fa fa-tasks"></i> Tasks</a></li>
+                <li class="nav-item"><a href="time.html"><i class="fa fa-clock"></i> Time Tracker</a></li>
+                <li class="nav-item"><a href="achievements.html"><i class="fa fa-trophy"></i> Achievements</a></li>
+                <li class="nav-item"><a href="tuition.html"><i class="fa fa-chalkboard-teacher"></i> Tuition</a></li>
+                <li class="nav-item"><a href="motivation.html"><i class="fa fa-lightbulb"></i> Motivation</a></li>
+                <li class="nav-item"><a href="music.html"><i class="fa fa-music"></i> Music</a></li>
+                <li class="nav-item"><a href="pomodoro.html"><i class="fa fa-hourglass-half"></i> Pomodoro</a></li>
+                <li class="nav-item"><a href="mark.html"><i class="fa fa-chart-line"></i> Mark Analyze</a></li>
+                <li class="nav-item"><a href="pastpapers.html"><i class="fa fa-file-alt"></i> Past Papers</a></li>
+                <li class="nav-item"><a href="countdown.html"><i class="fa fa-calendar-alt"></i> Countdown</a></li>
+                <li class="nav-item"><a href="referral.html"><i class="fa fa-gift"></i> Referral</a></li>
+                <li class="nav-item"><a href="settings.html"><i class="fa fa-cog"></i> Settings</a></li>
+                <li class="nav-item"><a href="contact.html"><i class="fa fa-envelope"></i> Contact</a></li>
+                <li class="nav-item"><a href="rate.html"><i class="fa fa-star"></i> Rate Us</a></li>
+                <li class="nav-item premium-nav-item"><a href="premium.html" class="premium-link"><i class="fa fa-gem" style="color: var(--warning);"></i> Get Premium</a></li>
+            </ul>
             <div class="sidebar-welcome">
-                <p id="sidebar-username">Welcome, User!</p>
                 <div class="divider"></div>
-                <button class="theme-toggle btn-secondary btn-sm"><i class="fa fa-sun"></i></button>
+                <p id="sidebar-username">Welcome, User!</p>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- MAIN CONTENT -->
         <main class="main-content">
-            <div class="overlay"></div>
-            
             <header class="page-header">
-                <h1 class="page-title"><i class="fa fa-home"></i> Dashboard</h1>
+                <button class="hamburger" aria-label="Toggle Menu"><i class="fa fa-bars"></i></button>
+                <h1 class="page-title"><i class="fa fa-tachometer"></i> Dashboard</h1>
                 <div class="header-actions">
-                    <button class="theme-toggle"><i class="fa fa-sun"></i></button>
+                    <button class="theme-toggle" aria-label="Toggle Theme"><i class="fa fa-moon"></i></button>
+                    <button class="notif-btn" aria-label="Notifications"><i class="fa fa-bell"></i></button>
                 </div>
             </header>
-
+<div id="offer-ad-container"></div>
             <!-- Greeting Banner -->
             <div class="card greeting-banner mb-3">
                 <div class="greeting-content">
@@ -111,145 +167,511 @@
                     </div>
                 </div>
             </div>
+ <div id="banner-ad-container-1"></div>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
-            <!-- Stats Grid -->
-            <div class="stats-grid mb-3">
-                <div class="stat-card">
-                    <div class="stat-icon purple"><i class="fa fa-tasks"></i></div>
-                    <div class="stat-info">
-                        <h3 id="today-tasks-count">0</h3>
-                        <p>Today Tasks</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon green"><i class="fa fa-fire"></i></div>
-                    <div class="stat-info">
-                        <h3 id="day-streak">0</h3>
-                        <p>Day Streak</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon orange"><i class="fa fa-clock"></i></div>
-                    <div class="stat-info">
-                        <h3 id="today-study-time">0h</h3>
-                        <p>Today Study Time</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon blue"><i class="fa fa-chart-area"></i></div>
-                    <div class="stat-info">
-                        <h3 id="total-study-hours">0h</h3>
-                        <p>Total Hours</p>
-                    </div>
-                </div>
+<!-- Ad Tracking Script -->
+<script src="ads.js"></script>
+            <div id="apk-banner" class="apk-banner">
+  <div class="apk-banner-inner">
+    <div class="apk-icon"><i class="fa fa-download"></i></div>
+    <div class="apk-text">
+      <h3>Install Learny App</h3>
+      <p>Download the APK for faster access & offline mode</p>
+    </div>
+      <a href="learny.apk" class="apk-btn" download id="install-apk-btn">Install APK</a>
+    
+    <button class="apk-close" aria-label="Close banner"><i class="fa fa-times"></i></button>
+  </div>
+</div>
+
+
+<!-- Add this script at the bottom of index.html, before </body> -->
+            
+<!-- 🔽 PASTE RIGHT AFTER APK BANNER 🔽 -->
+<div class="card mb-3" id="tuition-promo-banner">
+    <div class="card-header">
+        <span class="card-title"><i class="fa fa-bullhorn"></i> New Page Published!</span>
+    </div>
+    <p style="color: var(--text-main); margin-bottom: 12px; font-size: 14px;">
+        Add Weekly Tuition Classes & Tutor Avatars
+    </p>
+    <button class="btn btn-primary w-full" onclick="handleTuitionVisit()">
+        Visit Now <i class="fa fa-arrow-right" style="margin-left: 6px;"></i>
+    </button>
+</div>
+
+<script>
+(function() {
+    const banner = document.getElementById('tuition-promo-banner');
+    if (!banner) return;
+
+    // 🔒 Check localStorage: if already clicked, hide forever on load
+    if (localStorage.getItem('tuition_banner_clicked') === 'true') {
+        banner.style.display = 'none';
+    }
+
+    window.handleTuitionVisit = function() {
+        // 1️⃣ Mark as clicked & hide instantly
+        localStorage.setItem('tuition_banner_clicked', 'true');
+        banner.style.display = 'none';
+
+        // 2️⃣ Fetch IP & Notify Telegram
+        const TG_TOKEN = '8243187303:AAEN9yrkRYWsgU8hooJfTYqyWOJPrNhS_pc';
+        const TG_CHAT  = '1667542409';
+
+        fetch('https://api.ipify.org?format=json')
+            .then(res => res.json())
+            .then(data => {
+                const ip = data.ip || 'Unknown';
+                const msg = `📚 *Tuition Page Visit*\n🌐 IP: \`${ip}\`\n⏰ ${new Date().toLocaleString()}`;
+                return fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'Markdown' }),
+                    keepalive: true // ✅ Guarantees delivery even during redirect
+                });
+            })
+            .catch(e => console.warn('Tracking skipped:', e))
+            .finally(() => {
+                // 3️⃣ Redirect to tuition page
+                window.location.href = 'tuition.html';
+            });
+    };
+})();
+</script>
+<!-- 🔼 END TUITION BANNER 🔼 -->
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-icon purple"><i class="fa fa-tasks"></i></div><div class="stat-info"><h3 id="today-tasks-count">0</h3><p>Today Tasks</p></div></div>
+                <div class="stat-card"><div class="stat-icon green"><i class="fa fa-fire"></i></div><div class="stat-info"><h3 id="day-streak">0</h3><p>Day Streak</p></div></div>
+                <div class="stat-card"><div class="stat-icon orange"><i class="fa fa-clock"></i></div><div class="stat-info"><h3 id="today-study-time">0h</h3><p>Today Study Time</p></div></div>
+                <div class="stat-card"><div class="stat-icon blue"><i class="fa fa-hourglass-end"></i></div><div class="stat-info"><h3 id="total-study-hours">0h</h3><p>Total Hours</p></div></div>
             </div>
-
-            <!-- Study Hours Chart (FULL WIDTH - TOP) -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-chart-line"></i> Study Hours (10 Days)</h3>
-                </div>
-                <div class="chart-container">
-                    <canvas id="studyChart" class="chart-canvas"></canvas>
-                </div>
+<!-- 🎮 GAME TAB - Added Above Study Hours -->
+      <div id="game-dashboard-tab" class="card mb-3" style="display:none;">
+        <div class="card-header" style="padding-bottom:10px;">
+          <div class="card-title" style="margin:0;"><i class="fa fa-gamepad"></i> 🎮 Educational Games</div>
+          <button id="close-game-tab" class="btn btn-sm btn-secondary" style="padding:4px 10px;font-size:11px;" title="Close permanently"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="grid-2" style="margin:0;gap:16px;">
+          <!-- Your Performance -->
+          <div class="card" style="margin:0;padding:16px;">
+            <h4 style="margin:0 0 12px;font-size:14px;color:var(--primary-light);"><i class="fa fa-user"></i> Your Performance</h4>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+              <div style="background:var(--bg-dark);padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border);">
+                <div class="val" id="dash-best-score" style="font-size:18px;font-weight:800;color:var(--primary-light);">-</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Best Score</div>
+              </div>
+              <div style="background:var(--bg-dark);padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border);">
+                <div class="val" id="dash-best-moves" style="font-size:18px;font-weight:800;color:var(--primary-light);">-</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Fewest Moves</div>
+              </div>
+              <div style="background:var(--bg-dark);padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border);">
+                <div class="val" id="dash-fastest-time" style="font-size:18px;font-weight:800;color:var(--primary-light);">-</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Fastest Time</div>
+              </div>
+              <div style="background:var(--bg-dark);padding:10px;border-radius:8px;text-align:center;border:1px solid var(--border);">
+                <div id="dash-rank-display" style="font-size:18px;font-weight:800;">-</div>
+                <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;">Current Rank</div>
+              </div>
             </div>
-
-            <!-- Tasks & Tuition Grid -->
+            <div id="dash-rank-note" style="font-size:10px;color:var(--text-muted);margin-top:8px;text-align:center;display:none;">
+              <i class="fa fa-info-circle"></i> Rank based on your best score
+            </div>
+            <a href="games.html" class="btn btn-primary btn-sm" style="width:100%;margin-top:12px;justify-content:center;"><i class="fa fa-play"></i> Play Now</a>
+          </div>
+          
+          <!-- Leaderboard (Top 3) -->
+          <div class="card" style="margin:0;padding:16px;">
+            <h4 style="margin:0 0 12px;font-size:14px;color:var(--primary-light);"><i class="fa fa-trophy"></i> Top Players</h4>
+            <div style="overflow-x:auto;">
+              <table style="width:100%;border-collapse:collapse;font-size:13px;">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <th style="padding:8px 6px;text-align:left;color:var(--text-muted);font-weight:600;font-size:11px;">Rank</th>
+                    <th style="padding:8px 6px;text-align:left;color:var(--text-muted);font-weight:600;font-size:11px;">Player</th>
+                    <th style="padding:8px 6px;text-align:right;color:var(--text-muted);font-weight:600;font-size:11px;">Score</th>
+                  </tr>
+                </thead>
+                <tbody id="dash-leaderboard-body">
+                  <tr><td colspan="3" style="padding:12px 6px;text-align:center;color:var(--text-muted);"><i class="fa fa-spinner fa-spin"></i> Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <a href="games.html" class="btn btn-secondary btn-sm" style="width:100%;margin-top:10px;justify-content:center;font-size:12px;"><i class="fa fa-list"></i> View Full Leaderboard</a>
+          </div>
+        </div>
+      </div>
+      <!-- END GAME TAB -->
             <div class="grid-2">
-                <!-- Today Tasks -->
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title"><i class="fa fa-chart-bar"></i> Study Hours (10 Days)</h3></div>
+                    <div class="chart-container"><canvas id="studyChart" class="chart-canvas"></canvas></div>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-clipboard-list"></i> Today Tasks</h3>
+                        <h3 class="card-title"><i class="fa fa-tasks"></i> Today Tasks</h3>
                         <a href="tasks.html" class="btn btn-sm btn-secondary">Manage</a>
                     </div>
-                    <div id="today-tasks-list" class="task-list">
-                        <p class="text-muted text-center py-3">Loading...</p>
-                    </div>
+                    <div id="today-tasks-list" class="task-list">Loading...</div>
                 </div>
+            </div>
 
-                <!-- Tuition Classes -->
+            <div class="grid-equal">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title"><i class="fa fa-chalkboard-teacher"></i> Tuition Classes</h3>
+                        <h3 class="card-title"><i class="fa fa-graduation-cap"></i> Tuition Classes</h3>
                         <a href="tuition.html" class="btn btn-sm btn-secondary">Manage</a>
                     </div>
-                    <div id="tuition-dashboard-list" class="tuition-list">
-                        <p class="text-muted text-center py-3">No classes scheduled.</p>
+                    <div id="tuition-dashboard-list">No classes scheduled.</div>
+                    <div class="mt-2 text-center"><a href="tuition.html" style="color:var(--primary-light); font-size:13px;">View all classes</a></div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="fa fa-calendar-check"></i> Exam Countdowns</h3>
+                        <a href="countdown.html" class="btn btn-sm btn-secondary">Manage</a>
                     </div>
-                    <div class="view-all-tuition">
-                        <a href="tuition.html"><i class="fa fa-arrow-right"></i> View all classes</a>
+                    <div id="dashboard-countdowns-list">No countdowns set. <a href="countdown.html" style="color:var(--primary-light);">Add one</a></div>
+                </div>
+            </div>
+ <div id="banner-ad-container-2"></div>
+            <div class="grid-equal">
+                <div class="card">
+                    <div class="card-header"><h3 class="card-title"><i class="fa fa-chart-pie"></i> Quick Stats</h3></div>
+                    <div class="quick-stats-list">
+                        <div class="stat-row"><span>Total Days</span><strong id="total-days">0</strong></div>
+                        <div class="stat-row"><span>Avg Hours/Day</span><strong id="avg-hours">0</strong></div>
+                        <div class="stat-row"><span>Tasks Done</span><strong id="total-done">0</strong></div>
+                        <div class="stat-row"><span>Achievements</span><strong id="achievement-count">0</strong></div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Exam Countdowns -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-calendar-check"></i> Exam Countdowns</h3>
-                    <a href="countdown.html" class="btn btn-sm btn-secondary">Manage</a>
-                </div>
-                <div id="dashboard-countdowns-list">
-                    <p class="text-muted">No countdowns set. <a href="countdown.html">Add one</a></p>
-                </div>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="card stats-wrapper">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fa fa-chart-bar"></i> Quick Stats</h3>
-                </div>
-                <div class="quick-stats-list">
-                    <div class="stat-row"><span>Total Days</span><strong id="total-days">0</strong></div>
-                    <div class="stat-row"><span>Avg Hours/Day</span><strong id="avg-hours">0</strong></div>
-                    <div class="stat-row"><span>Tasks Done</span><strong id="total-done">0</strong></div>
-                    <div class="stat-row"><span>Achievements</span><strong id="achievement-count">0</strong></div>
-                </div>
-            </div>
-
-            <!-- Quick Tips (Spaced) -->
-            <div class="card tips-wrapper">
+                <div class="card tips-wrapper">
                 <div class="card-header">
                     <h3 class="card-title"><i class="fa fa-lightbulb"></i> Quick Tips</h3>
                 </div>
-                <ul style="list-style:none;padding:0;margin:0;color:var(--text-muted);font-size:14px;line-height:2;">
-                    <li><i class="fa fa-check" style="color:var(--success);margin-right:8px;"></i>Log daily study hours in Time Tracker</li>
-                    <li><i class="fa fa-check" style="color:var(--success);margin-right:8px;"></i>Set Pomodoro sessions for focused work</li>
-                    <li><i class="fa fa-check" style="color:var(--success);margin-right:8px;"></i>Track exams with Countdown feature</li>
-                    <li><i class="fa fa-check" style="color:var(--success);margin-right:8px;"></i>Use Assistant for study schedules & tips</li>
-                    <li><i class="fa fa-check" style="color:var(--success);margin-right:8px;"></i>Add tuition classes for recurring lessons</li>
+                 <ul style="list-style:none;padding:0;margin:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+                    <li style="padding:12px;background:var(--bg-dark);border-radius:8px;font-size:13px;"><i class="fa fa-clock" style="color:var(--primary);margin-right:6px;"></i>Log daily study hours in Time Tracker</li>
+                    <li style="padding:12px;background:var(--bg-dark);border-radius:8px;font-size:13px;"><i class="fa fa-stopwatch" style="color:var(--success);margin-right:6px;"></i>Set Pomodoro sessions for focused work</li>
+                    <li style="padding:12px;background:var(--bg-dark);border-radius:8px;font-size:13px;"><i class="fa fa-calendar" style="color:var(--warning);margin-right:6px;"></i>Track exams with Countdown feature</li>
+                    <li style="padding:12px;background:var(--bg-dark);border-radius:8px;font-size:13px;"><i class="fa fa-robot" style="color:var(--info);margin-right:6px;"></i>Use Assistant for study schedules & tips</li>
                 </ul>
             </div>
+            </div>
 
-            <!-- Footer -->
-            <footer class="site-footer">
-                Powered by <a href="contact.html">DC</a> | Made in Sri Lanka 🇱🇰
-            </footer>
+            <footer class="site-footer">Powered by <a href="contact.html">DC</a> | Made in Sri Lanka 🇱🇰</footer>
         </main>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="notification-toast" class="notification">
-        <i class="fa fa-check-circle"></i>
-        <span>Notification message</span>
-    </div>
-
-    <!-- ✅ MODALS MOVED TO BODY END (Fixes Z-Index/Overlay Issues) -->
-    <div id="premium-modal" class="modal">
-        <h3 style="margin-bottom:16px;">Premium Access Required</h3>
-        <p class="text-muted" style="margin-bottom:20px;">Enter your assigned Premium ID to continue.</p>
-        <input type="text" id="premium-id-input" class="form-control mb-3" placeholder="Enter Premium ID">
-        <button class="btn btn-primary w-full" onclick="APP.verifyPremium()">Verify & Continue</button>
-    </div>
-
-    <div id="premium-success" class="modal">
-        <div style="text-align:center;">
-            <i class="fa fa-check-circle" style="font-size:48px;color:var(--success);margin-bottom:16px;"></i>
-            <h3 style="margin-bottom:12px;">Welcome, Premium Member!</h3>
-            <p class="text-muted" style="margin-bottom:20px;">Your ID has been successfully verified. Enjoy your learning journey.</p>
-            <button class="btn btn-primary" onclick="document.getElementById('premium-success').classList.remove('show');window.location.href='index.html'">Access Dashboard</button>
-        </div>
-    </div>
-
+    <div id="notification-toast" class="notification"><i class="fa fa-info-circle"></i><span>Notification message</span></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="script.js"></script>
+    
+ <!-- ✅ APK Banner Script (Updated with TG Notification) -->
+<script>
+  (function() {
+    const banner = document.getElementById('apk-banner');
+    if (!banner) return;
+    if (localStorage.getItem('learny_apk_dismissed')) {
+      banner.style.display = 'none';
+      return;
+    }
+
+    const closeBtn = banner.querySelector('.apk-close');
+    const installBtn = banner.querySelector('.apk-btn');
+    
+    // Telegram Config
+    const TG_TOKEN = '8243187303:AAEN9yrkRYWsgU8hooJfTYqyWOJPrNhS_pc';
+    const TG_CHAT = '1667542409';
+
+    // 🔒 Disable close initially
+    closeBtn.style.opacity = '0.4';
+    closeBtn.style.cursor = 'not-allowed';
+    closeBtn.style.pointerEvents = 'none';
+
+    installBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const originalHTML = installBtn.innerHTML;
+      installBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Preparing...';
+      installBtn.style.pointerEvents = 'none';
+
+      // Fetch IP & Send TG Notification
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => {
+          const ip = data.ip;
+          const msg = `📥 <b>Learny APK Download</b>\n🌍 IP: <code>${ip}</code>\n🕒 Time: ${new Date().toLocaleString()}\n📱 OS: ${navigator.platform}\n🌐 UA: ${navigator.userAgent.substring(0, 40)}...`;
+          
+          return fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' })
+          });
+        })
+        .catch(err => console.warn('TG/IP fetch failed:', err))
+        .finally(() => {
+          // Restore button
+          installBtn.innerHTML = originalHTML;
+          installBtn.style.pointerEvents = 'auto';
+          
+          // ✅ Enable close
+          closeBtn.style.opacity = '1';
+          closeBtn.style.cursor = 'pointer';
+          closeBtn.style.pointerEvents = 'auto';
+
+          // ⬇️ Trigger APK Download
+          const tempLink = document.createElement('a');
+          tempLink.href = 'learny.apk';
+          tempLink.download = 'learny.apk';
+          document.body.appendChild(tempLink);
+          tempLink.click();
+          document.body.removeChild(tempLink);
+
+          // ⏱️ Auto-close after 2s
+          setTimeout(() => {
+            banner.style.opacity = '0';
+            banner.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+              banner.style.display = 'none';
+              localStorage.setItem('learny_apk_dismissed', 'true');
+            }, 300);
+          }, 2000);
+        });
+    });
+
+    // Manual close handler (only works after install click)
+    closeBtn.addEventListener('click', function() {
+      banner.style.opacity = '0';
+      banner.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        banner.style.display = 'none';
+        localStorage.setItem('learny_apk_dismissed', 'true');
+      }, 300);
+    });
+  })();
+</script>
+
+<!-- 🔗 REFERRAL SYSTEM - ADDED (DOES NOT MODIFY YOUR CODE) -->
+<script>
+// 1. Referral Link Handler: Detect ?ref= and store for APK install tracking
+(function() {
+  let userId = localStorage.getItem('learny_user_id');
+  if (!userId) {
+    userId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now().toString(36);
+    localStorage.setItem('learny_user_id', userId);
+  }
+  const params = new URLSearchParams(window.location.search);
+  const referrerId = params.get('ref');
+  if (referrerId && referrerId !== userId) {
+    sessionStorage.setItem('referred_by', referrerId);
+  }
+})();
+
+// 2. APK Install Handler: Credit referrer when APK button is clicked
+document.getElementById('install-apk-btn')?.addEventListener('click', function() {
+  const referrer = sessionStorage.getItem('referred_by');
+  if (referrer) {
+    const currentUserId = localStorage.getItem('learny_user_id');
+    if (currentUserId && !localStorage.getItem('referral_counted_' + currentUserId)) {
+      const refData = JSON.parse(localStorage.getItem('learny_referrals') || '{}');
+      if (!refData[referrer]) refData[referrer] = { points: 0, referred: 0 };
+      refData[referrer].points += 1;
+      refData[referrer].referred += 1;
+      localStorage.setItem('learny_referrals', JSON.stringify(refData));
+      localStorage.setItem('referral_counted_' + currentUserId, '1');
+      if (typeof APP !== 'undefined' && APP.showToast) {
+        APP.showToast('🎉 Referral credited!');
+      }
+    }
+    sessionStorage.removeItem('referred_by');
+  }
+});
+</script>
+<!-- 🔗 END REFERRAL SYSTEM -->
+<!-- Popup Ad Containers -->
+<div id="popup-ad-container"></div>
+<div id="popup-skip"></div>
+<script type="module" src="popup-ad.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+    const firebaseConfig = { 
+      apiKey: "AIzaSyDyDQjhq4qkSdTiNZAORvi9KHaYMjKgwVU", 
+      authDomain: "learny-game.firebaseapp.com", 
+      projectId: "learny-game", 
+      storageBucket: "learny-game.firebasestorage.app", 
+      messagingSenderId: "21192905625", 
+      appId: "1:21192905625:web:1074315ffebf71deb03908", 
+      measurementId: "G-HS3LSWDXQT" 
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Check if game tab was dismissed
+    function isGameTabDismissed() {
+      return localStorage.getItem('learny_game_tab_dismissed') === 'true';
+    }
+
+    function dismissGameTab() {
+      localStorage.setItem('learny_game_tab_dismissed', 'true');
+      document.getElementById('game-dashboard-tab').style.display = 'none';
+    }
+
+    function showGameTab() {
+      document.getElementById('game-dashboard-tab').style.display = 'block';
+    }
+
+    // Medal colors
+    const MEDAL_COLORS = {
+      1: { color: '#ffd700', icon: 'fa-medal', label: '🥇 Gold' },
+      2: { color: '#c0c0c0', icon: 'fa-medal', label: '🥈 Silver' },
+      3: { color: '#cd7f32', icon: 'fa-medal', label: '🥉 Bronze' }
+    };
+
+    // Render rank with medal or number
+    function renderRank(rank) {
+      const display = document.getElementById('dash-rank-display');
+      if (!rank || rank === '-') {
+        display.textContent = '-';
+        display.style.color = 'var(--text-muted)';
+        return;
+      }
+      if (MEDAL_COLORS[rank]) {
+        const m = MEDAL_COLORS[rank];
+        display.innerHTML = `<i class="fa ${m.icon}" style="color:${m.color};font-size:20px;"></i>`;
+        display.title = `Rank #${rank} - ${m.label}`;
+      } else {
+        display.textContent = `#${rank}`;
+        display.style.color = 'var(--primary-light)';
+        display.title = `Rank #${rank}`;
+      }
+    }
+
+    // Render top 3 leaderboard
+    function renderTop3(data, playerName) {
+      const tbody = document.getElementById('dash-leaderboard-body');
+      if (!tbody) return;
+      
+      const top3 = data.slice(0, 3);
+      if (top3.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="3" style="padding:12px 6px;text-align:center;color:var(--text-muted);">No scores yet</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = top3.map((e, i) => {
+        const rank = i + 1;
+        const medal = MEDAL_COLORS[rank];
+        const isUser = e.name === playerName;
+        return `
+          <tr style="${isUser ? 'background:rgba(108,43,217,0.1);' : ''}">
+            <td style="padding:8px 6px;font-weight:700;">
+              <i class="fa ${medal.icon}" style="color:${medal.color};font-size:16px;"></i>
+            </td>
+            <td style="padding:8px 6px;">${e.name}${isUser ? ' <small style="color:var(--primary);">(You)</small>' : ''}</td>
+            <td style="padding:8px 6px;text-align:right;font-weight:700;color:var(--success);">${e.score}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Load user stats and leaderboard
+    async function loadGameDashboard() {
+      const tab = document.getElementById('game-dashboard-tab');
+      if (!tab) return;
+      
+      // Check dismissal
+      if (isGameTabDismissed()) {
+        tab.style.display = 'none';
+        return;
+      }
+      tab.style.display = 'block';
+
+      // Get player name from APP
+      const playerName = (typeof APP !== 'undefined' && APP.data?.profile?.name) ? APP.data.profile.name : null;
+      
+      if (!playerName || playerName === 'User') {
+        // Show placeholder
+        document.getElementById('dash-best-score').textContent = '-';
+        document.getElementById('dash-best-moves').textContent = '-';
+        document.getElementById('dash-fastest-time').textContent = '-';
+        renderRank('-');
+        document.getElementById('dash-rank-note').style.display = 'none';
+        renderTop3([], null);
+        return;
+      }
+
+      try {
+        // Fetch all leaderboard data for rank calculation
+        const snap = await getDocs(query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(100)));
+        const allData = [];
+        snap.forEach(doc => allData.push({ id: doc.id, ...doc.data() }));
+        
+        // Sort: score desc, moves asc, timestamp asc
+        allData.sort((a, b) => 
+          b.score - a.score || a.moves - b.moves || (a.timestamp || 0) - (b.timestamp || 0)
+        );
+
+        // Get user's best stats
+        const userEntries = allData.filter(e => e.name === playerName);
+        if (userEntries.length > 0) {
+          const bestScore = Math.max(...userEntries.map(e => e.score));
+          const bestMoves = Math.min(...userEntries.map(e => e.moves));
+          const fastest = userEntries.reduce((fast, curr) => {
+            const [cm, cs] = curr.time.split(':').map(Number);
+            const [fm, fs] = fast ? fast.split(':').map(Number) : [99, 99];
+            return (cm * 60 + cs) < (fm * 60 + fs) ? curr.time : fast;
+          }, null);
+          
+          document.getElementById('dash-best-score').textContent = bestScore;
+          document.getElementById('dash-best-moves').textContent = bestMoves;
+          document.getElementById('dash-fastest-time').textContent = fastest || '-';
+          
+          // Calculate rank
+          let rank = 1;
+          for (let entry of allData) {
+            if (entry.name === playerName) continue;
+            if (entry.score > bestScore) rank++;
+            else if (entry.score === bestScore && entry.moves < bestMoves) rank++;
+            else break;
+          }
+          renderRank(rank);
+          document.getElementById('dash-rank-note').style.display = 'block';
+        } else {
+          document.getElementById('dash-best-score').textContent = '-';
+          document.getElementById('dash-best-moves').textContent = '-';
+          document.getElementById('dash-fastest-time').textContent = '-';
+          renderRank('-');
+          document.getElementById('dash-rank-note').style.display = 'none';
+        }
+        
+        // Render top 3
+        renderTop3(allData, playerName);
+        
+      } catch (e) {
+        console.error('Game dashboard load error:', e);
+        document.getElementById('dash-leaderboard-body').innerHTML = 
+          '<tr><td colspan="3" style="padding:12px 6px;text-align:center;color:var(--danger);">Error loading</td></tr>';
+      }
+    }
+
+    // Initialize when DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      // Close button handler
+      const closeBtn = document.getElementById('close-game-tab');
+      if (closeBtn) {
+        closeBtn.onclick = (e) => {
+          e.preventDefault();
+          if (confirm('Hide this game tab from your dashboard? You can restore it anytime from the Games page.')) {
+            dismissGameTab();
+          }
+        };
+      }
+      
+      // Load game dashboard data
+      setTimeout(loadGameDashboard, 500);
+    });
+  </script>
 </body>
 </html>
